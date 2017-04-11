@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>替换元素节点replaceChild()</title>
+</head>
+<body>
+  <div><b id="oldnode">JavaScript</b>是一个很常用的技术，为网页添加动态效果。</div>
+  <a href="javascript:replaceMessage()"> 将加粗改为斜体</a>
+
+    <script type="text/javascript">
+      function replaceMessage(){
+        var newNode=document.createElement('i');
+        //newNode.innerHTML="HTML/CSS";//直接给创建的新节点赋值
+        var newNodeText=document.createTextNode('javaScript');
+        newNode.appendChild(newNodeText);
+        var oldNode=document.getElementById('oldnode');
+        oldNode.parentNode.replaceChild(newNode,oldNode);
+       }
+  </script>
+
+ </body>
+</html>

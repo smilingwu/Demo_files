@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数中参数的作用是什么</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*function sum(a,b){
+        return a*b;
+    }
+    sum(10,6);*/
+    /*function myFunction(arg1,arg2){
+        this.firstName=arg1;
+        this.lastName=arg2;
+    }
+    var x = new myFunction("John","Doe");
+    console.log(x);*/
+    function myFunction (a,b) {
+        return a*b;
+    }
+    var myObject=new myFunction();
+    //alert(myFunction.call(myObject,10,2));
+    myArray=[10,2];
+    alert(myFunction.apply(myObject,myArray));
+</script>
+</html>

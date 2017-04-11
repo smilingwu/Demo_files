@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网页滚动到底部或者滚动到顶部</title>
+</head>
+<style>
+    div{width:200px;height: 200px;background:#f00;margin: 1000px auto;}
+</style>
+<body>
+    <div></div>
+</body>
+<script>
+    function scrollBottomOrTop () {
+        var clients=window.innerHeight || document.body.clientHeight || docuemnt.documentElement.clientHeight;
+        var scrollTop=document.body.scrollTop;//滚上去的高度
+        var wholeHeight=document.body.scrollHeight;
+        if(clients+scrollTop>=wholeHeight){
+            alert("我已经滚动到了底部");
+        }
+        if(scrollTop==0){
+            alert("我已经滚动到了顶部");
+        }
+    }
+    window.onscroll=scrollBottomOrTop;
+</script>
+</html>

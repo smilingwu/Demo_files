@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+
+		<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+
+		<script>
+			var baseUrl = 'http://service.exfox.com.cn/apiproxy/service.aspx?method=';
+			$(function() {	
+				var param = {
+		            "ltconfig":"WX_SPEC",                                //商品规格表
+		            "pagenow":0,
+		            "pagesize":20,
+		            "mask":4,
+		            "condition":"WX_PUBLIC_ID==21",        //所属公众号，获取页面sessionStorage
+		            "intables":[{
+		                "ltconfig":"WX_SPECITEM",			//商品规格明细表
+		                "refcolumn":"WX_SPEC_ID",			//关联到主表的字段
+		                "type":"list",	//返回数据方式（列表、对象），可为空，默认值list
+		                "mask":4
+		            }]
+				};		
+				//获取规格列表及规格明细
+				postData('/pc/getjsonarray', param ,'获取规格列表及规格明细');	
+				
+				var item = {
+					"objtable": {
+						"table": "wx_productitem",
+						"mask":5 
+					}
+				};
+				//获取商品明细显示列
+				postData('/table/getAddCol',item , '获取商品明细显示列');
+			});
+			
+			function postData(url, param, remark){
+				$.ajax({
+					type:"post",
+					beforeSend: function(xhr) {
+						console.log('请求前' + remark);
+						//console.log(JSON.stringify(param));
+					},
+					url: baseUrl + url,
+					async:false,
+					data: JSON.stringify(param),
+					success:function(data){
+						console.log(JSON.stringify(data));
+					},
+					error: function(data){
+						alert(JSON.stringify(data));
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>右下角广告特效</title>
+</head>
+<style>
+   *{margin: 0;padding: 0;}
+    .container{width:960px;height:1700px;font-size:36px;text-align:center;margin:0 auto;position:relative;}
+    .rightAd{position:fixed;font-size:16px;text-align:center;bottom:0;right:0;}
+ .clickMe{height:24px;background:#CCC;line-height:24px;}
+ .clickMe{position: relative;}
+ .clickMe a{
+ background: url(images/icon.jpg) no-repeat -399px -19px;
+ width: 16px;
+ height: 16px;
+ position: absolute;
+ top: 5px;
+ right: 5px;
+ }
+ .clickMe a:hover{
+ background-position:-343px -19px;
+ }
+ .showPic{display:none;}
+ .hide{display: none;}
+ .show{display:block;}
+</style>
+<body>
+    <div class="container">
+        <img src="images/num.jpg" alt="网页主体内容">
+    </div>
+    <div class="rightAd" id="tipCon">
+        <div class="clickMe" id="clickMe">猜猜我有啥？
+            <a href="javascript:void(0);" id="closeBtn"></a>
+        </div>
+        <div id="showPic">
+            <img src="images/snow.gif" alt="">
+        </div>
+    </div>
+</body>
+<script>
+window.onload=function(){
+    var TipBox=document.getElementById('tipCon');
+    var CloseBtn=document.getElementById('closeBtn');
+    var ClickMe=document.getElementById('clickMe');
+    var ShowPic=document.getElementById('showPic');
+    ClickMe.onmouseover=function(){
+        ShowPic.className='show';
+        CloseBtn.className='show';
+    }
+    CloseBtn.onclick=function(){
+        //TipBox.style.display='none';
+        ShowPic.className='hide';
+        CloseBtn.className='hide';
+    }
+}
+</script>
+</html>
+<!-- fixed相对于浏览器的 -->

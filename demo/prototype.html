@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>prototype原型法设计模式</title>
+</head>
+<body>
+
+</body>
+
+<script>
+    function People(name){
+        this.name=name;
+        //对象方法
+        this.Introduct=function(){
+            alert("My name is"+this.name);
+        }
+    }
+    //类方法
+    People.Run=function(){
+        alert("I can run");
+    }
+    //原型方法
+    People.prototype.IntroductChinese=function(){
+        alert("我的名字是"+this.name);
+    }
+    //测试
+    var p1=new People("Windking");
+    p1.Introduct();
+    People.Run();
+    p1.IntroductChinese();
+</script>
+</html>

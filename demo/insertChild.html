@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插入节点insertBefore()</title>
+</head>
+<body>
+    <ul id="test">
+        <li>javascript</li>
+        <li>Html</li>
+    </ul>
+</body>
+<script>
+    var otest=document.getElementById('test');
+    /*var node=document.getElementsByTagName('li')[0];*/
+    var newnode=document.createElement('li');
+    newnode.innerHTML='php';
+    otest.insertBefore(newnode,otest.firstChild);
+</script>
+</html>
+<!-- 语法：insertBefore(newnode,node); -->

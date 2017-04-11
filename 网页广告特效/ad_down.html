@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>顶部广告展开收起</title>
+</head>
+<style>
+    *{margin: 0;padding: 0;}
+    .container{width: 960px;height: 1700px;margin: 0 auto;}
+    .ad{
+        width: 960px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        display:none;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <div class="ad" id="ad">
+            <img src="images/ad.png"  id="adCon" alt="顶部广告"/>
+            <!-- <img src="images/cur.png" alt="顶部广告"/> -->
+        </div>
+        <div class="content" id="content">
+            <img src="images/num.jpg" alt="主体内容">
+        </div>
+    </div>
+</body>
+<script>
+    //获取id
+     var $=function(id) {
+        return document.getElementById(id);
+     }
+    var h=0;
+    var maxH=$('adCon').height;
+    function adDown(){
+        if(h<maxH){
+            h+=5;
+            $('ad').style.height=h+'px';
+            $('ad').style.display='block';
+            setTimeout(adDown,1);//每隔一毫秒执行一次
+        }
+        else{
+            $('ad').style.height=h+'px';
+            $('ad').style.display='block';
+        }
+    }
+    setTimeout(adDown,3000);
+</script>
+</html>

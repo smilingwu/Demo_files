@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>顶部广告展开收起</title>
+<style>
+body, div, img, span {
+    margin: 0;
+    padding: 0;
+}
+#content {
+    width: 960px;
+    height: 1000px;
+    background: #ccc;
+    margin: 0 auto;
+}
+#ad {
+    width: 960px;
+    margin: 0 auto;
+    display: none;
+    position: relative;
+    overflow: hidden;
+}
+#close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    background: #CF3;
+    top: 0;
+    right: 0;
+    display: none;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div id="ad">
+   <img id="adcon" src="images/ad.png" width="960" height="386"/>
+   <img id="adcur" src="images/cur.png" width="960" height="68"/>
+   <span id="close">X</span>
+</div>
+<div id="content"><img src="images/num.jpg" /></div>
+<script>
+//全局变量
+/*var oAd     = document.getElementById('ad');
+var oAdcon  = document.getElementById('adcon');
+var oAdcur  = document.getElementById('adcur');
+var oClose  = document.getElementById('close');
+*/
+var getId=function(id){
+    return document.getElementById(id);
+}
+var maxH=getId('adcon').height;
+var minH=getId('adcur').height;
+var step=5;
+var h=0;
+//广告向下展开
+function adDown(){
+    if(h<maxH){
+        h+=step;
+        getId('ad').style.height=h+'px';
+        getId('ad').style.display='block';
+        setTimeout(adDown,1);//每一毫秒执行一次
+    }
+}
+//广告向上收缩
+function adUp(){
+    if (h>=minH) {
+        h-=step;
+        getId('ad').style.height=h+'px';
+        getId('ad').style.display='block';
+        setTimeout(adUp,1);//每一毫秒执行一次
+    }
+}
+getId('close').onclick=function(){
+     getId('ad').style.display='none';
+}
+setTimeout(adDown,3000);//广告停留时间3秒
+</script>
+</body>
+</html>

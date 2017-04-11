@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>foo 函数</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*function Foo(){
+        getName=function(){
+            alert(1);
+        };
+        return this;
+    }
+    Foo.getName=function(){
+        alert(2);
+    }
+    Foo.prototype.getName=function(){
+        alert(3);
+    }
+    var getName=function(){
+        alert(4);
+    }
+    function getName(){
+        alert(5);
+    }*/
+    /*var json={a:12,b:13,c:26};
+    for(var i in json){
+        //alert(i);
+        alert(json[i]);
+    }*/
+    /*var str = {"code":0,"data":[{"uid":"689791","username":"vaghyuzhihao","orgid":"627","status":"1","subname":"yuzhihao","roleids":"1","orgcode":"600251","name":"yuzhihao","mapid":"0","passwd":"","siteid":"0","createorgcode":"600251","alarmview":"0"}]};
+    var json = eval(str);
+    console.log(json.code);*/
+    var timestamp = parseInt(new Date().getTime()/1000);    // 当前时间戳
+    //alert(timestamp);
+    var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+    var date = (d.getFullYear()) + "-" +
+               (d.getMonth() + 1) + "-" +
+               (d.getDate()) + " " +
+               (d.getHours()) + ":" +
+               (d.getMinutes()) + ":" +
+               (d.getSeconds());
+    alert(date);
+</script>
+</html>

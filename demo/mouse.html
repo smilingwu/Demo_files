@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>鼠标滑过显示图片或文字</title>
+    </head>
+    <style>
+        div.panel,p.flip
+        {
+
+        margin:0px;
+        padding:5px;
+        text-align:center;
+
+        border:solid 1px #c3c3c3;
+        }
+        div.panel
+        {
+
+        height:120px;
+        display:none;
+        }
+
+#triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-top: 100px solid red;
+}
+.triangle {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border: 20px solid transparent;
+    border-top-color: #000;
+    border-bottom-width: 0;
+}
+    </style>
+    <body>
+        <div class="content" style="float:left;display:block;width:300px;">
+            <p class="flip">滑过这里</p>
+            <div class="panel">
+                <img src="images/1.jpg" width="100%" alt="图片"/>
+            </div>
+        </div>
+        <div class="content" style="float:left;display:block;width:300px;">
+            <p class="flip">滑过这里</p>
+            <div class="panel">
+                <p>11111111111111111</p>
+                <p>2222222222222222222222</p>
+            </div>
+        </div>
+        <div id="triangle-down"></div>
+    </body>
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <script>
+        $(function(){
+          $(".flip").mouseover(function(){
+            $(this).next("div").slideDown(500);
+          });
+          $(".content").mouseout(function(){
+            $(this).children("div").slideUp(500);
+          });
+        });
+    </script>
+</html>

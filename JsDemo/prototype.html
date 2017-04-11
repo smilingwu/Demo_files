@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript prototype 使用介绍</title>
+</head>
+<body>
+
+</body>
+<script>
+    //function Obj () {
+        /*var a=0;//私有变量
+        var fn=function(){ //私有函数
+
+        }*/
+    //}
+    //Obj.a=0;//静态变量
+    //Obj.fn=function () {
+    //}
+    //console.log(Obj.a);
+    //console.log(typeof Obj.fn);
+    /*var o=new Obj();
+    console.log(o.a);
+    console.log(o.fn);*/
+    function Employee(name, salary)
+    {
+        this.name=name;
+        this.salary=salary;
+    }
+    Employee.prototype.getSalary=function getSalaryFunction()
+    {
+        return this.salary;
+    }
+    Employee.prototype.addSalary=function addSalaryFunction(addition)
+    {
+        this.salary=this.salary+addition;
+    }
+    var boss1=new Employee("Joan", 200000);
+    var boss2=new Employee("Kim", 100000);
+    var boss3=new Employee("Sam", 150000);
+    alert(boss1.getSalary());
+    alert(boss2.getSalary());
+    alert(boss3.getSalary());
+</script>
+</html>

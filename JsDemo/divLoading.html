@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>div滚动到底部加载</title>
+</head>
+<style>
+    .show{width:200px;height: 200px;background:#f00;margin: 10px auto;overflow-y:scroll;padding: 10px;}
+</style>
+<body>
+    <div class="show" id="TestDiv">
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+</body>
+<script>
+var divscroll=document.getElementById('TestDiv');
+    function divScroll(){
+        var wholeHeight=divscroll.scrollHeight;
+        var scrollTop=divscroll.scrollTop;
+        var divHeight=divscroll.clientHeight;
+        console.log(divHeight);
+        if(scrollTop+divHeight>=wholeHeight){
+            alert("底部");
+        }
+        if(scrollTop==0){
+            alert("顶部");
+        }
+    }
+    divscroll.onscorll=divScroll;
+</script>
+</html>

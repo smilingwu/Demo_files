@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+	<button id="donwnload" type="button">下载</button>
+	<script>
+		$(function(){
+			// 多pdf文件下载demo
+			// 浏览器地址传参
+			var selectedFiles = GetQueryString('selectedFiles');
+			// 字符串转数组
+			selectedFilesArray = selectedFiles.split(',');
+			// 通过打开文件的方式来下载pdf压缩包
+			// 下载压缩包而不是直接下载pdf文件的原因是：浏览器可能在新标签页在线打开pdf文件，zip文件不会
+			$('#donwnload').click(function(){
+				for (var i = 0; i < selectedFilesArray.length; i++) {
+					var fileUrl = './pdf/' + selectedFilesArray[i] + '.pdf.zip';
+					downloadFile(fileUrl);
+				}
+			})
+		})
+
+		function GetQueryString(name) {
+			var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r!=null)return  unescape(r[2]); return null;
+		}
+
+		function downloadFile(url) {
+      try{
+        var elemIF = document.createElement("iframe");
+        elemIF.src = url;
+        elemIF.style.display = "none";
+        document.body.appendChild(elemIF);
+      } catch(e){
+				window.confirm("下载文件地址错误!");
+      }
+    }
+	</script>
+</body>
+</html>

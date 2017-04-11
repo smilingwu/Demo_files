@@ -1,0 +1,16 @@
+body{ margin:0; padding:0; font-family: "Microsoft Yahei"; font-size: 12px;}
+input{ margin:0; padding:0;}
+.wrapper{ width: 80%; margin:100px auto 0; clear: both;}
+.control-group{ margin: 20px 0;}
+.control-group>label{ float: left; font-size: 14px;}
+.control-group>label+div{ margin-left: 150px;}
+.select2-dropdown-open .select2-choice{ height: 24px;}
+.select2-container{}
+.hide{ display: none;}
+.ui-popover .select2-search{ width: 10px;}
+.ui-popover .select2-selection{ min-height: 31px;}
+.table-sku-stock input{ border-radius: 4px; border: solid 1px #aaa; line-height: 20px; padding: 4px 6px;}
+.table-sku-stock .input-mini{ width: 60px;}
+.table-sku-stock .input-small{ width: 90px;}
+.table-sku-stock .manual-valid-error input{ border-color: #b94a48;}
+.select2-container.select2-allowclear .select2-choice abbr{ display: none;}

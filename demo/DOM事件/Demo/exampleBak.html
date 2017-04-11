@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM事件探秘(备份)</title>
+</head>
+<body>
+    <div id="box">
+        <input type="button" id="btn" value="按钮" onclick="showMessage()">
+        <input type="button" id="btn2" value="按钮2">
+        <input type="button" id="btn3" value="按钮3">
+        <a href="test.html" id="go">跳转</a>
+    </div>
+</body>
+<script>
+//html事件处理程序
+    function showMessage(event){
+        //alert("hello!")
+        //alert(event.type);
+        var ele=event.target || event.srcElement;
+        alert(ele);
+        //alert(event.target.nodeName);
+        event.stopPropagation();
+    }
+    function showBox(){
+        alert("这是一个放按钮的盒子！")
+ ;   }
+   function stopGoto(event){
+        event.stopPropagation();
+        event.preventDefault();
+   }
+//DOM0事件处理程序
+ var obtn2=document.getElementById("btn2");
+ var obtn3=document.getElementById("btn3");
+ var obox=document.getElementById("box");
+ var ogo=document.getElementById("go");
+ /*obtn2.onclick=function(){
+    alert("这是通过DOM0事件处理程序！")
+ }*/
+    //obtn2.onclick=null;//删除事件
+ //DOM2事件处理程序
+    /*obtn3.addEventListener('click',showMessage,false); //不能添加onmouseover类似事件应去掉on
+    obtn3.addEventListener('click',function(){
+        alert(this.value);//this代表当前点击的对象
+    },false)*/
+    //obtn3.removeEventListener('click',showMessage,false);//删除事件
+    //IE事件处理程序
+    //obtn3.attachEvent('click',showMessage);
+    //obtn3.detachEvent('click',showMessage);//删除事件
+    //把方法封装到对象中
+    var eventUtil={  //跨浏览器处理程序
+        //添加句柄
+        addHandler:function(element,type,handler){
+            if(element.addEventListener){
+                element.addEventListener(type,handler,false);
+            }
+            else if(element.attachEvent){
+                element.attachEvent('on'+type,handler);
+            }
+            else{
+                element['on'+type]=handler;
+                //element.onclick===element['on'+click];注意.等价于[]
+            }
+        },
+        //删除句柄
+        removeHandler:function(element,type,handler){
+            if(element.removeEventListener){
+                element.removeEventListener(type,handler,false);
+            }
+            else if(element.detachEvent){
+                element.detachEvent('on'+type,handler);
+            }
+            else{
+                element['on'+type]=null;
+                //element.onclick===element['on'+click];注意.等价于[]
+            }
+        }
+    }
+    eventUtil.addHandler(btn3,'click',showMessage);
+    //eventUtil.removeHandler(btn3,'click',showMessage);//删除事件
+    eventUtil.addHandler(obox,'click',showBox);
+    eventUtil.addHandler(ogo,'click',stopGoto);
+</script>
+</html>

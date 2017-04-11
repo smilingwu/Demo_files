@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>Bing search</title>
+</head>
+<style>
+body{background-color:#333;}
+.bg-div{background-image:url(images/river.jpg);width:1228px;height:690px;margin: 0 auto;position:relative;}
+.logo{background-image:url(images/logo.png);width: 107px;height: 53px;float:left;margin:-4px 18px 0 0;}
+.form-search{float:left;background-color: #fff;padding: 5px;}
+.search-text{border:0;width:100%;width: 350px;height: 25px;line-height: 25px;outline:none;float: left;}
+.search-button{border:0;background-image: url(images/search-button.png);width: 29px;height: 29px;float: left;}
+.search-box{position:absolute;top:150px;left:200px;}
+.suggest{width: 387px;background-color:#fff;border:1px solid #999;}
+.suggest ul{list-style:none;margin: 0;padding: 0;}
+.suggest ul li{padding: 3px;}
+.suggest li:hover{text-decoration:underline;background-color:#e5e5e5;cursor:pointer;}
+</style>
+<body>
+    <div class="bg-div">
+        <div class="search-box">
+            <div class="logo"></div>
+            <form action="https://cn.bing.com/search" target="_blank" class="form-search" id="form-search">
+                <input type="text" class="search-text" id="search-input">
+                <input type="submit" class="search-button" value="">
+            </form>
+        </div>
+    </div>
+    <div class="suggest" id="suggest-search" style="display:none;">
+        <ul id="search-result">
+            <li>搜索结果1</li>
+            <li>搜索结果2</li>
+        </ul>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/search.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script>
+    $('#search-input').bind('keyup', function() {
+        var searchText=$('#search-input').val();
+        $.get('http://api.bing.com/qsonhs.aspx?q=+searchText',function(d){
+            var d=d.AS.Results[0].Suggests;
+            var html='';//用一个变量来保存动态生成的html结构
+            for(var i=0;i<d.length;i++){
+                html+='<li>'+d[i].Txt+'</li>';//取到服务器返回的数据，并拼接成一个完整html的字符串
+            }
+            $('#search-result').html(html);//设置成服务器返回的数据内容
+                $('#suggest-search').show().css({
+                top:$('#form-search').offset().top+$('#form-search').height()+10,
+                left:$('#form-search').offset().left,
+                position:'absolute'
+            });
+        },'json');
+
+    });
+    //点击页面其他位置suggest-search消失
+    $(document).bind('click', function() {
+        $('#suggest-search').hide();
+    });
+    //事件代理delegate() 方法
+    $(document).delegate('li', 'click', function() {
+        var keyword=$(this).text();
+        location.href='http://cn.bing.com/search?q='+keyword;
+    });
+</script> -->
+</html>

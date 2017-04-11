@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js动画效果</title>
+    <script src="js/Move.js"></script>
+</head>
+<style>
+    body,ul,li{margin: 0;padding: 0;}
+    .ul{margin: 0 auto;}
+    ul,li{list-style: none;}
+    ul li{width: 200px;height: 100px;background:yellow;margin-bottom: 20px;border: 4px solid #000;filter:alpha(opacity:30);opacity: 0.3;}
+</style>
+<body>
+    <ul>
+        <li id="li1"></li>
+    </ul>
+</body>
+<script>
+window.onload=function(){
+    var Li=document.getElementById('li1');
+    Li.onmouseover=function(){
+        startMove(Li,'height',600,function(){
+            startmove(Li,'width',600);
+        });
+    }
+    Li.onmouseout=function(){
+        startMove(Li,'width',200,function(){
+            startmove(Li,'height',200);
+        });
+    }
+}
+</script>
+
+</html>

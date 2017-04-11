@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+/* .one{width:100%;height: 100%;}
+.two{width: 100px;height:20px;border:1px solid #00ff00;}
+.three{width: 200px;height: 50px;border:1px solid #1e6a6e;}
+.two,.three{margin: 0 auto;} */
+#container {
+    position: relative;
+    width: 600px;
+    height: 500px;
+    border: 1px solid #000;
+    margin: auto;
+}
+#box {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 50%;
+    top: 50%;
+    margin: -100px -100px;
+    background-color: #0ff;
+}
+.div{position: relative;left:50%;float: left;}
+.con{width:200px;height: 200px;float:left;position:relative;right:50%;background: #000;}
+</style>
+<body><input type="number" name="" id="input" class="form-control" value="" min="{5"} max="" step="" required="required" title="">
+    <div class="one">
+        <div class="two"></div>
+        <div class="three"></div>
+    </div>
+     <div id="container">
+        <div id="box"></div>
+        <button id="btn">点击</button>
+    </div>
+    <div class="div">
+        <div class="con"></div>
+    </div>
+</body>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+<script>
+    /*var i=0;
+    $("#box").click(function (){
+        i=i+1;
+        alert(i);
+    })*/
+    var num = 1,
+        btn = document.getElementById('btn');
+    btn.onclick = function () {
+        alert(num);
+        num++;
+    }
+</script>
+</html>

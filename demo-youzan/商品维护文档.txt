@@ -1,0 +1,159 @@
+商品维护页主要包含商品表(wx_product)、商品图片表(wx_productimage)、商品规格表(WX_SPEC)、商品规格明细表(WX_SPECITEM)、商品明细表(wx_productitem)
+
+通用新增地址：/common/add
+通用修改地址：/common/modify
+通用删除地址：/common/delete
+获取表字段信息地址：/table/getAddCol
+pc获取数据接口地址：/pc/getjsonarray
+
+一、初始化页面
+商品表(wx_product)、商品图片表(wx_productimage)、商品明细表(wx_productitem)需要根据表字段显示；商品规格表(WX_SPEC)、商品规格明细表(WX_SPECITEM)取数据显示复选框
+1、获取表字段信息
+{
+      "objtable":{
+           "table":wx_product,  //要查询的表
+           "mask":0,           //要查询的操作规则，新增页面为0，编辑页面为2
+       }
+}
+返回数据结构：
+{
+    "code":0,
+    "message":"操作成功",
+    "data":{
+        "columns":[{{"id":785,"showname":"是否可用","name":"ISACTIVE","ispk":false,"isak":false,"isdk":false,"isnullable":false,"coulumntype":4,"assignment_id":9,"showtype_id":6,"ad_table_id":40,"ad_table_name":"WX_PRODUCT","defaultvalue":"Y","iscanadd":true,"iscanmodif":true,"datafrom_id":4,"foregintable_id":0,"list":[{"code":"Y","name":"是"},{"code":"N","name":"否"}]}}]
+     }
+}
+columns为表字段信息
+
+2、根据表字段信息加载控件
+showtype_id:[{1:文件},{2:图片},{3:输入框},{6:下拉列表},{8:换行},{10:时间}]
+coulumntype:[{1:具体的时间 年月日时分秒},{2:年月日},{3:时分秒},{4:文本},{5:数字},{7:密码},{8:多列文本(textarea)},{9:富文本},{10:文本},{11:多选},{12:弹框多选}]
+控件判断的层级关系如下：
+      if(foregintable_id>0){//外键关联，弹框
+            if(coulumntype==12){//多选弹框
+             /*-------------每个节点都需要如下判断-------------------*/
+                if(iscanadd){//是否可新增，如在编辑页面则判断iscanmodif字段
+                    if(isnullable){//是否可为空
+
+                    }
+                }
+             /*-------------end-------------------*/
+            }
+            else{}//单选弹框
+    }else{
+            if(showtype_id==3){
+                if(coulumntype==4){}      //文本
+                else if(coulumntype==5){} //数字
+                else if(coulumntype==7){} //密码
+                else if(coulumntype==8){} //文本域
+                else if(coulumntype==9){} //富文本
+            }
+            else if(showtype_id==2){}//图片
+            else if(showtype_id==6){}//下拉列表
+            else if(showtype_id==10){//时间
+                    if(coulumntype==1){}      //年月日时分秒
+                    else if(coulumntype==2){} //年月日
+                    else if(coulumntype==3){} //时分秒
+            }
+    }
+
+相关字段说明：
+showtype_id:6                   //确定控件，例：6为下拉列表select，3为输入框input
+coulumntype：4，                //确定类型，例：showtype_id=3，coulumntype=4，则控件为type="text"的input普通文本输入框
+foregintable_id:0               //如foregintable_id>0,则该字段为外键关联字段
+property：{"min":0,"max":1}     //扩展属性，如控件为数字输入框则控制输入数字的最大值最小值，如为图片控件则控制图片大小
+isnullable:false                //是否可为空，如不可为空则添加提示框  
+iscanadd：true                  //是否可新增，如为false则在新增页面该控件不可编辑（disabled）,只做展示用   
+list:[{"code":"Y","name":"是"},{"code":"N","name":"否"}]   //扩展字段，如showtype_id=6，则下拉列表的option则遍历list，如foregintable_id>0,则出现reftablejson字段，值为关联表信息
+
+3、商品规格相关表获取数据参数如下
+{
+            "ltconfig":"WX_SPEC",                                //商品规格表
+            "pagenow":0,
+            "pagesize":20,
+            "mask":4,
+            "condition":"WX_PUBLIC_ID=="+this.public_id,        //所属公众号，获取页面sessionStorage
+            "intables":[{
+                "ltconfig":"WX_SPECITEM",			//商品规格明细表
+                "refcolumn":"WX_SPEC_ID",			//关联到主表的字段
+                "type":"list",	//返回数据方式（列表、对象），可为空，默认值list
+                "mask":4
+            }]
+}
+返回数据
+{
+       "recordscount":2,
+       "totalpages":1,
+       "list":[{"id":9,"code":"size","name":"尺寸","isactive":"Y"},{"id":8,"code":"Z001","name":"颜色","isactive":"Y"}],
+       "intables":{
+                    "wx_specitem":{
+                                   "WX_SPEC_ID_8":[{"id":24,"code":"a003","form_name":"蓝色","wx_spec_id":8,"wx_spec_id__dk":"颜色","isactive":"Y"}],
+                                   "WX_SPEC_ID_9":[{"id":26,"code":"28","form_name":"28","wx_spec_id":9,"wx_spec_id__dk":"尺寸","isactive":"Y"}]}}
+}
+复选框控件信息：
+list[i].code               //作为复选框input的name属性值
+WX_SPEC_ID_8[i].code       //作为input的value，
+WX_SPEC_ID_8[i].form_name  //作为input的text文本显示
+
+二、数据层
+1、点击"生成"
+
+点击"生成"传递的数据
+      var produc_item={};
+            var code=product.CODE+"_"+value.code;
+            produc_item["code"]=code;  //默认值为商品编号和规格数组编号组合，可修改
+            produc_item["stock"]=0;
+            produc_item["dp_price"]=product.DP_PRICE;  //默认值为商品表的吊牌价，可修改
+            produc_item["sc_price"]=product.SC_PRICE;  //默认值为商品表的市场价，可修改
+            produc_item["specification_array"]=value.specification_array;//为选中的规格计算的笛卡尔数组，不可修改
+            produc_item["description"]=value.description;//为选中规格计算的笛卡尔数组中文描述，不可修改
+            produc_item["image"]="";
+            produc_item["isactive"]="Y";
+            produc_item["wx_product_id"]="";
+            produc_item["weight"]=0;
+      poc.specitem_result_data.push(produc_item)//最后将poc.specitem_result_data数据添加到商品明细表中显示
+
+2、商品新增
+
+提交参数：{
+            "id":0,				//objectmodify时，ID必须不为0
+            "table": "wx_product",		
+            "mastertable": this.produc_seriljson,	//主表数据,单对象，格式为：a=1&b=2
+            "objitems": [{
+                "reftable": "wx_productimage",			//商品图片表
+                "refcolumn": "WX_PRODUCT_id",		        //关联表字段
+                "addlist": poc.return_imgurl_arr,		//数组,元素同mastertable格式相同
+            },{
+                "reftable": "wx_productitem",			//商品明细表
+                "refcolumn": "WX_PRODUCT_id",		        //关联表字段
+                "addlist": this.specitem_result_data,		//数组,元素同mastertable格式相同
+            }]
+}
+参数主要数据来源：
+this.produc_seriljson：为商品表部分表单序列化产生
+poc.return_imgurl_arr：主要为轮播图图片数组，上传图片后调用imgUrl方法，将地址信息添加到poc.return_imgurl_arr中，同理一旦删除图片则也要删除poc.return_imgurl_arr中对应的数据
+this.specitem_result_data：为商品明细表中的数据，由点击"生成"按钮产生，可在表中修改相应信息，表中主要控件为input，可编辑的字段input添加onblur事件调用update_product_result方法（新增页面，编辑页面调用modify_productitem_result方法），修改this.specitem_result_data中对应数据信息
+
+3、商品编辑
+提交参数：{
+            "id":this.id,				//objectmodify时，ID必须不为0
+            "table": "wx_product",		         //要操作的表名
+            "mastertable": this.produc_seriljson,	//主表数据,单对象，格式为：a=1&b=2
+            "objitems": [{
+                "reftable": "wx_productimage",			//关联商品图片表
+                "refcolumn": "WX_PRODUCT_id",		        //关联表字段
+                "addlist": this.return_imgurl_arr,		//要添加的数据,元素同mastertable格式相同
+            },{
+                "reftable": "wx_productitem",			//商品明细表
+                "refcolumn": "WX_PRODUCT_id",		        //关联表字段
+                "addlist": this.return_producitem_add,		//要添加的数据,元素同mastertable格式相同
+                "modifylist":this.return_producitem_modify
+            }]
+}
+
+主要数据来源：
+        this.productItem_data_original=new Array;  //从数据库查出的原始数据
+        this.specitem_result_data_temp=new Array;  //点击生成按钮生成的商品明细数据
+        this.return_producitem_add=new Array;      //待新增数据，放入addlist中，来源为新增加规格经过笛卡尔积计算产生的新的规格数组部分
+        this.return_producitem_modify=new Array;   //待编辑数据，放入modifylist中，来源为数据库已有的规格数组进行修改了的部分
+        this.producitem_original_temp={};          //临时变量，key为规格明细数据id组合而成，value为this.productItem_data_original[i](在前端增加了一个"type"字段，默认为"o"说明此数据为原始数据，在明细表修改后将当前数据添加到return_producitem_modify中，同时type改为"m",二次查找发现type为m时则直接到return_producitem_modify中修改)

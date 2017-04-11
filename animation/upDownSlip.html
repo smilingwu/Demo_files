@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上下滑动的图片</title>
+</head>
+<style>
+    .holder{
+        overflow:hidden;
+        width: 330px;
+        height: 333px;
+        float:left;
+        position: relative;
+        background-color: #000;
+        margin-right: 1px;
+    }
+    .holder .image{
+    position:absolute;
+    left: -100px;
+    }
+    .holder span{
+        background-color:#333;
+        font-size:27px;
+        font-family:Arial,Helvetica,sans-serif;
+        color:#dedede;
+        font-weight:700;
+        padding: 4px;
+        position: absolute;
+        top:120px;
+        left:4px;
+    }
+    .holder .text{
+        padding: 20px;
+        display:none;
+        font-family:Arial,Helvetica,sans-serif;
+        line-height: 26px;
+        position: absolute;
+        top:180px;
+        font-size: 16px;
+        color: #fff;
+        width: 340px;
+    }
+    .clear{
+        clear:both;
+    }
+    .main{
+        width: 1000px;
+        height: 333px;
+        margin: 0 auto;
+        overflow:hidden;
+    }
+    .credit{
+    font-size:12px;
+    margin-top: 25px;
+    }
+</style>
+<body>
+    <div class="main">
+        <div class="holder notactive">
+            <img src="images/1.jpg" alt="" class="image"/>
+            <span>百度中心</span>
+            <div class="text">
+                111111111111111111111111111111111111111111
+            </div>
+        </div>
+        <div class="holder notactive">
+            <img src="images/2.jpg" alt="" class="image"/>
+            <span>腾讯中心</span>
+            <div class="text">
+                222222222222222222222222222222222222222222
+            </div>
+        </div>
+        <div class="holder notactive">
+            <img src="images/3.jpg" alt="" class="image"/>
+            <span>阿里巴巴</span>
+            <div class="text">
+                333333333333333333333333333333333333333333
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+$(function(){
+    $('.holder').hover(function() {
+        $(this).removeClass('notactive');
+        $('.notactive').stop().animate({'width':'290px'}, 400);
+        $(this).find('img').stop().animate({'top':'-165px'}, 400);
+        $(this).stop().animate({'width':'380px'}, 400);
+        $(this).find('span').css('background-color', '#000');
+        $(this).find('.text').fadeIn(300);
+    }, function() {
+        $('.notactive').stop().animate({'width':'320px'}, 400);
+        $(this).addClass('notactive');
+        $(this).find('.text').hide();
+        $(this).find('img').stop().animate({'top':'0px'}, 500);
+        $(this).stop().animate({'width':'320px'}, 400);
+        $(this).find('span').css({'background-color':'#333','color':'#dedede'});
+    });
+});
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>offset</title>
+</head>
+<style>
+    *{margin: 0;padding: 0;}
+    .big-box{width: 400px;height: 400px;border:1px solid #1e6ea6;margin: 0 auto;float:left;}
+    .small-box{width: 100px;height: 100px;border:1px solid #f00;position:relative;top:50%;left:50%;margin-left: -50px;margin-top: -50px;}
+</style>
+<body onmousedown="show_coords(event)">
+
+    <p>Click in the document. An alert box will alert
+the x and y coordinates of the mouse pointer.</p>
+    <div class="big-box" id="big-box">
+        <div class="small-box" id="small-box"></div>
+    </div>
+</body>
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+<script>
+/*window.onload=function(){*/
+    //alert(document.getElementById('big-box').offsetLeft);
+    //alert(document.getElementById('big-box').offsetTop);
+    //alert(document.getElementById('small-box').offsetTop);
+    /*alert(document.getElementById('small-box').offsetLeft);*/
+    //alert(document.getElementById('big-box').offsetWidth);
+    //alert(document.getElementById('big-box').offsetHeight);
+    //alert(document.body.clientWidth);
+    //alert(document.body.clientHeight);
+/*}*/
+function show_coords(event)
+  {
+  x=event.clientX
+  y=event.clientY
+  alert("X coords: " + x + ", Y coords: " + y)
+  }
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+
+		<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+		<script>
+			var url = 'http://service.exfox.com.cn/apiproxy/service.aspx?method=pc/getjsonarray';
+			$(function() {	
+				var param = {
+		            "ltconfig":"WX_SPEC",                                //商品规格表
+		            "pagenow":0,
+		            "pagesize":20,
+		            "mask":4,
+		            "condition":"WX_PUBLIC_ID==21",        //所属公众号，获取页面sessionStorage
+		            "intables":[{
+		                "ltconfig":"WX_SPECITEM",			//商品规格明细表
+		                "refcolumn":"WX_SPEC_ID",			//关联到主表的字段
+		                "type":"list",	//返回数据方式（列表、对象），可为空，默认值list
+		                "mask":4
+		            }]
+				};				
+				postData(param);
+				
+			});
+			
+			function postData(param){
+				$.ajax({
+					type:"post",
+					beforeSend: function(xhr) {
+						console.log('请求前');
+					},
+					url: url,
+					async:true,
+					data: JSON.stringify(param),
+					success:function(data){
+						console.log(JSON.stringify(data));
+					},
+					error: function(data){
+						alert(JSON.stringify(data));
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>
